@@ -1,0 +1,50 @@
+What is the weather like today?
+Help me write a Python function to sort a list
+Can you explain how recursion works?
+Summarize this article for me
+How do I create a new git branch?
+What are the best practices for API design?
+Calculate the factorial of 10
+Convert this JSON to a Python dictionary
+Explain the difference between REST and GraphQL
+How do I center a div in CSS?
+What is the time complexity of quicksort?
+Translate this text to Spanish
+Help me debug this JavaScript error
+What are environment variables and how do I use them?
+Explain async/await in JavaScript
+How do I connect to a PostgreSQL database?
+What is Docker and how does it work?
+Generate a random password
+Explain the MVC pattern
+How do I parse HTML in Python?
+What is the difference between let and const?
+Create a regex to match phone numbers
+How do I handle errors in TypeScript?
+Explain OAuth 2.0 flow
+What are React hooks?
+How do I ignore files in Git?
+What is the purpose of package-lock.json?
+Explain the CAP theorem
+How do I write unit tests in Python?
+What is continuous integration?
+Explain the singleton pattern
+How do I make an HTTP request in Node.js?
+What is a RESTful API?
+How do I use the map function in JavaScript?
+Explain prototypal inheritance
+What are WebSockets?
+How do I deploy to Heroku?
+What is GraphQL and how does it differ from REST?
+Explain the event loop in JavaScript
+How do I validate form input?
+What is responsive design?
+How do I use CSS Grid?
+Explain microservices architecture
+What are environment variables?
+How do I secure an API?
+What is CORS and how do I handle it?
+Explain database migrations
+How do I optimize database queries?
+What is caching and when should I use it?
+How do I implement pagination?

@@ -1,0 +1,57 @@
+[
+    {
+        "type": "EMAIL",
+        "value": "john.doe@example.com"
+    },
+    {
+        "type": "EMAIL",
+        "value": "jane_smith123@company.co.uk"
+    },
+    {
+        "type": "SSN",
+        "value": "123-45-6789"
+    },
+    {
+        "type": "SSN",
+        "value": "987-65-4321"
+    },
+    {
+        "type": "CREDIT_CARD",
+        "value": "4532015112830366",
+        "note": "Valid Visa"
+    },
+    {
+        "type": "CREDIT_CARD",
+        "value": "5425233430109903",
+        "note": "Valid Mastercard"
+    },
+    {
+        "type": "CREDIT_CARD",
+        "value": "374245455400126",
+        "note": "Valid Amex"
+    },
+    {
+        "type": "PHONE_US",
+        "value": "(555) 123-4567"
+    },
+    {
+        "type": "PHONE_US",
+        "value": "555-987-6543"
+    },
+    {
+        "type": "IP_ADDRESS",
+        "value": "192.168.1.1"
+    },
+    {
+        "type": "IP_ADDRESS",
+        "value": "10.0.0.255"
+    },
+    {
+        "type": "AWS_KEY",
+        "value": "AKIAIOSFODNN7EXAMPLE"
+    },
+    {
+        "type": "GITHUB_TOKEN",
+        "value": "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+]

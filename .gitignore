@@ -1,0 +1,22 @@
+guide.md
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Testing
+coverage/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env

@@ -1,0 +1,47 @@
+export declare const codes: {
+    readonly reset: "\u001B[0m";
+    readonly bold: "\u001B[1m";
+    readonly dim: "\u001B[2m";
+    readonly italic: "\u001B[3m";
+    readonly underline: "\u001B[4m";
+    readonly black: "\u001B[30m";
+    readonly red: "\u001B[31m";
+    readonly green: "\u001B[32m";
+    readonly yellow: "\u001B[33m";
+    readonly blue: "\u001B[34m";
+    readonly magenta: "\u001B[35m";
+    readonly cyan: "\u001B[36m";
+    readonly white: "\u001B[37m";
+    readonly gray: "\u001B[90m";
+    readonly bgRed: "\u001B[41m";
+    readonly bgGreen: "\u001B[42m";
+    readonly bgYellow: "\u001B[43m";
+    readonly bgBlue: "\u001B[44m";
+    readonly bgMagenta: "\u001B[45m";
+    readonly bgCyan: "\u001B[46m";
+    readonly cursorUp: (n?: number) => string;
+    readonly cursorDown: (n?: number) => string;
+    readonly eraseLine: "\u001B[2K";
+    readonly eraseDown: "\u001B[J";
+};
+export declare const style: {
+    red: (s: string) => string;
+    green: (s: string) => string;
+    yellow: (s: string) => string;
+    blue: (s: string) => string;
+    cyan: (s: string) => string;
+    magenta: (s: string) => string;
+    gray: (s: string) => string;
+    dim: (s: string) => string;
+    bold: (s: string) => string;
+    italic: (s: string) => string;
+    underline: (s: string) => string;
+    error: (s: string) => string;
+    warning: (s: string) => string;
+    success: (s: string) => string;
+    info: (s: string) => string;
+};
+export declare function stripAnsi(s: string): string;
+export declare function clearLines(count: number): void;
+export declare function supportsColor(): boolean;
+//# sourceMappingURL=ansi.d.ts.map
