@@ -48,9 +48,23 @@ export const InjectionConfigSchema = z.object({
     blockOnDetect: z.boolean().default(true),
 });
 
+export const CommandConfigSchema = z.object({
+    enabled: z.boolean().default(true),
+    mode: z.enum(['escape', 'strip', 'block']).default('escape'),
+});
+
+export const LoopConfigSchema = z.object({
+    enabled: z.boolean().default(true),
+    maxIdenticalCalls: z.number().default(5),
+    maxSequenceRepeats: z.number().default(3),
+    windowSize: z.number().default(20),
+});
+
 export const DetectionConfigSchema = z.object({
     pii: PIIConfigSchema.default({}),
     injection: InjectionConfigSchema.default({}),
+    command: CommandConfigSchema.default({}),
+    loop: LoopConfigSchema.default({}),
 });
 
 export const PolicyConfigSchema = z.object({
@@ -86,3 +100,5 @@ export type InjectionConfig = z.output<typeof InjectionConfigSchema>;
 export type PolicyConfig = z.output<typeof PolicyConfigSchema>;
 export type HITLConfig = z.output<typeof HITLConfigSchema>;
 export type AuditConfig = z.output<typeof AuditConfigSchema>;
+export type CommandConfig = z.output<typeof CommandConfigSchema>;
+export type LoopConfig = z.output<typeof LoopConfigSchema>;

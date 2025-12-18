@@ -13,6 +13,16 @@ export const DEFAULT_CONFIG: ResolvedConfig = {
             threshold: 0.7,
             blockOnDetect: true,
         },
+        command: {
+            enabled: true,
+            mode: 'escape',
+        },
+        loop: {
+            enabled: true,
+            maxIdenticalCalls: 5,
+            maxSequenceRepeats: 3,
+            windowSize: 20,
+        },
     },
     policy: {
         enabled: true,

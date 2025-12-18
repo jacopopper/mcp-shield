@@ -37,8 +37,6 @@ await client.callTool('filesystem.read', { path: '/tmp/data.txt' });
 
 ## Next Steps
 
-- **Command Injection Sanitization** – Input sanitization for shell-like arguments
-- **Infinite Loop Detection** – Heuristic analysis of tool call history to break recursive loops (DoS prevention)
 - **Context Sanitization** – Output scanning to prevent "poisoned" data from being re-ingested as instructions
 - **Tool Name Collision Detection** – Tool fingerprinting and registry verification
 - **Permission Diff Analysis** – Warn when an MCP server requests excessive permissions

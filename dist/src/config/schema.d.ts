@@ -143,6 +143,32 @@ export declare const InjectionConfigSchema: z.ZodObject<{
     threshold?: number | undefined;
     blockOnDetect?: boolean | undefined;
 }>;
+export declare const CommandConfigSchema: z.ZodObject<{
+    enabled: z.ZodDefault<z.ZodBoolean>;
+    mode: z.ZodDefault<z.ZodEnum<["escape", "strip", "block"]>>;
+}, "strip", z.ZodTypeAny, {
+    enabled: boolean;
+    mode: "strip" | "escape" | "block";
+}, {
+    enabled?: boolean | undefined;
+    mode?: "strip" | "escape" | "block" | undefined;
+}>;
+export declare const LoopConfigSchema: z.ZodObject<{
+    enabled: z.ZodDefault<z.ZodBoolean>;
+    maxIdenticalCalls: z.ZodDefault<z.ZodNumber>;
+    maxSequenceRepeats: z.ZodDefault<z.ZodNumber>;
+    windowSize: z.ZodDefault<z.ZodNumber>;
+}, "strip", z.ZodTypeAny, {
+    enabled: boolean;
+    maxIdenticalCalls: number;
+    maxSequenceRepeats: number;
+    windowSize: number;
+}, {
+    enabled?: boolean | undefined;
+    maxIdenticalCalls?: number | undefined;
+    maxSequenceRepeats?: number | undefined;
+    windowSize?: number | undefined;
+}>;
 export declare const DetectionConfigSchema: z.ZodObject<{
     pii: z.ZodDefault<z.ZodObject<{
         enabled: z.ZodDefault<z.ZodBoolean>;
@@ -170,6 +196,32 @@ export declare const DetectionConfigSchema: z.ZodObject<{
         threshold?: number | undefined;
         blockOnDetect?: boolean | undefined;
     }>>;
+    command: z.ZodDefault<z.ZodObject<{
+        enabled: z.ZodDefault<z.ZodBoolean>;
+        mode: z.ZodDefault<z.ZodEnum<["escape", "strip", "block"]>>;
+    }, "strip", z.ZodTypeAny, {
+        enabled: boolean;
+        mode: "strip" | "escape" | "block";
+    }, {
+        enabled?: boolean | undefined;
+        mode?: "strip" | "escape" | "block" | undefined;
+    }>>;
+    loop: z.ZodDefault<z.ZodObject<{
+        enabled: z.ZodDefault<z.ZodBoolean>;
+        maxIdenticalCalls: z.ZodDefault<z.ZodNumber>;
+        maxSequenceRepeats: z.ZodDefault<z.ZodNumber>;
+        windowSize: z.ZodDefault<z.ZodNumber>;
+    }, "strip", z.ZodTypeAny, {
+        enabled: boolean;
+        maxIdenticalCalls: number;
+        maxSequenceRepeats: number;
+        windowSize: number;
+    }, {
+        enabled?: boolean | undefined;
+        maxIdenticalCalls?: number | undefined;
+        maxSequenceRepeats?: number | undefined;
+        windowSize?: number | undefined;
+    }>>;
 }, "strip", z.ZodTypeAny, {
     pii: {
         enabled: boolean;
@@ -181,6 +233,16 @@ export declare const DetectionConfigSchema: z.ZodObject<{
         threshold: number;
         blockOnDetect: boolean;
     };
+    command: {
+        enabled: boolean;
+        mode: "strip" | "escape" | "block";
+    };
+    loop: {
+        enabled: boolean;
+        maxIdenticalCalls: number;
+        maxSequenceRepeats: number;
+        windowSize: number;
+    };
 }, {
     pii?: {
         enabled?: boolean | undefined;
@@ -191,6 +253,16 @@ export declare const DetectionConfigSchema: z.ZodObject<{
         enabled?: boolean | undefined;
         threshold?: number | undefined;
         blockOnDetect?: boolean | undefined;
+    } | undefined;
+    command?: {
+        enabled?: boolean | undefined;
+        mode?: "strip" | "escape" | "block" | undefined;
+    } | undefined;
+    loop?: {
+        enabled?: boolean | undefined;
+        maxIdenticalCalls?: number | undefined;
+        maxSequenceRepeats?: number | undefined;
+        windowSize?: number | undefined;
     } | undefined;
 }>;
 export declare const PolicyConfigSchema: z.ZodObject<{
@@ -361,6 +433,32 @@ export declare const ShieldConfigSchema: z.ZodObject<{
             threshold?: number | undefined;
             blockOnDetect?: boolean | undefined;
         }>>;
+        command: z.ZodDefault<z.ZodObject<{
+            enabled: z.ZodDefault<z.ZodBoolean>;
+            mode: z.ZodDefault<z.ZodEnum<["escape", "strip", "block"]>>;
+        }, "strip", z.ZodTypeAny, {
+            enabled: boolean;
+            mode: "strip" | "escape" | "block";
+        }, {
+            enabled?: boolean | undefined;
+            mode?: "strip" | "escape" | "block" | undefined;
+        }>>;
+        loop: z.ZodDefault<z.ZodObject<{
+            enabled: z.ZodDefault<z.ZodBoolean>;
+            maxIdenticalCalls: z.ZodDefault<z.ZodNumber>;
+            maxSequenceRepeats: z.ZodDefault<z.ZodNumber>;
+            windowSize: z.ZodDefault<z.ZodNumber>;
+        }, "strip", z.ZodTypeAny, {
+            enabled: boolean;
+            maxIdenticalCalls: number;
+            maxSequenceRepeats: number;
+            windowSize: number;
+        }, {
+            enabled?: boolean | undefined;
+            maxIdenticalCalls?: number | undefined;
+            maxSequenceRepeats?: number | undefined;
+            windowSize?: number | undefined;
+        }>>;
     }, "strip", z.ZodTypeAny, {
         pii: {
             enabled: boolean;
@@ -372,6 +470,16 @@ export declare const ShieldConfigSchema: z.ZodObject<{
             threshold: number;
             blockOnDetect: boolean;
         };
+        command: {
+            enabled: boolean;
+            mode: "strip" | "escape" | "block";
+        };
+        loop: {
+            enabled: boolean;
+            maxIdenticalCalls: number;
+            maxSequenceRepeats: number;
+            windowSize: number;
+        };
     }, {
         pii?: {
             enabled?: boolean | undefined;
@@ -382,6 +490,16 @@ export declare const ShieldConfigSchema: z.ZodObject<{
             enabled?: boolean | undefined;
             threshold?: number | undefined;
             blockOnDetect?: boolean | undefined;
+        } | undefined;
+        command?: {
+            enabled?: boolean | undefined;
+            mode?: "strip" | "escape" | "block" | undefined;
+        } | undefined;
+        loop?: {
+            enabled?: boolean | undefined;
+            maxIdenticalCalls?: number | undefined;
+            maxSequenceRepeats?: number | undefined;
+            windowSize?: number | undefined;
         } | undefined;
     }>>;
     policy: z.ZodDefault<z.ZodObject<{
@@ -536,6 +654,16 @@ export declare const ShieldConfigSchema: z.ZodObject<{
             threshold: number;
             blockOnDetect: boolean;
         };
+        command: {
+            enabled: boolean;
+            mode: "strip" | "escape" | "block";
+        };
+        loop: {
+            enabled: boolean;
+            maxIdenticalCalls: number;
+            maxSequenceRepeats: number;
+            windowSize: number;
+        };
     };
     policy: {
         enabled: boolean;
@@ -579,6 +707,16 @@ export declare const ShieldConfigSchema: z.ZodObject<{
             threshold?: number | undefined;
             blockOnDetect?: boolean | undefined;
         } | undefined;
+        command?: {
+            enabled?: boolean | undefined;
+            mode?: "strip" | "escape" | "block" | undefined;
+        } | undefined;
+        loop?: {
+            enabled?: boolean | undefined;
+            maxIdenticalCalls?: number | undefined;
+            maxSequenceRepeats?: number | undefined;
+            windowSize?: number | undefined;
+        } | undefined;
     } | undefined;
     policy?: {
         enabled?: boolean | undefined;
@@ -617,4 +755,6 @@ export type InjectionConfig = z.output<typeof InjectionConfigSchema>;
 export type PolicyConfig = z.output<typeof PolicyConfigSchema>;
 export type HITLConfig = z.output<typeof HITLConfigSchema>;
 export type AuditConfig = z.output<typeof AuditConfigSchema>;
+export type CommandConfig = z.output<typeof CommandConfigSchema>;
+export type LoopConfig = z.output<typeof LoopConfigSchema>;
 //# sourceMappingURL=schema.d.ts.map
