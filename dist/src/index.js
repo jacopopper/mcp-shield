@@ -13,4 +13,6 @@ export { InjectionDetector } from './detection/injection/detector.js';
 // Middleware (advanced usage)
 export { MiddlewarePipeline } from './middleware/pipeline.js';
 export { PolicyMiddleware } from './middleware/policy.js';
+// Integrations
+export { useShield, createUseShield } from './integrations/use.js';
 //# sourceMappingURL=index.js.map

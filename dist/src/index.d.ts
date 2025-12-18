@@ -15,4 +15,6 @@ export { MiddlewarePipeline } from './middleware/pipeline.js';
 export type { MiddlewareContext, MiddlewareFn } from './middleware/pipeline.js';
 export { PolicyMiddleware } from './middleware/policy.js';
 export type { PolicyEvaluation } from './middleware/policy.js';
+export { useShield, createUseShield } from './integrations/use.js';
+export type { MCPUseClient, UseShieldOptions } from './integrations/use.js';
 //# sourceMappingURL=index.d.ts.map
