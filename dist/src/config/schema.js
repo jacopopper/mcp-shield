@@ -45,11 +45,17 @@ export const LoopConfigSchema = z.object({
     maxSequenceRepeats: z.number().default(3),
     windowSize: z.number().default(20),
 });
+export const NeuralConfigSchema = z.object({
+    enabled: z.boolean().default(false), // Opt-in (requires model download)
+    modelId: z.string().default('ProtectAI/deberta-v3-base-prompt-injection-v2'),
+    threshold: z.number().min(0).max(1).default(0.85),
+});
 export const DetectionConfigSchema = z.object({
     pii: PIIConfigSchema.default({}),
     injection: InjectionConfigSchema.default({}),
     command: CommandConfigSchema.default({}),
     loop: LoopConfigSchema.default({}),
+    neural: NeuralConfigSchema.default({}),
 });
 export const PolicyConfigSchema = z.object({
     enabled: z.boolean().default(true),

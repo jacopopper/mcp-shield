@@ -21,6 +21,11 @@ export const DEFAULT_CONFIG = {
             maxSequenceRepeats: 3,
             windowSize: 20,
         },
+        neural: {
+            enabled: false, // Opt-in (requires model download)
+            modelId: 'ProtectAI/deberta-v3-base-prompt-injection-v2',
+            threshold: 0.85,
+        },
     },
     policy: {
         enabled: true,

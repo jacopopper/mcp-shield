@@ -169,6 +169,19 @@ export declare const LoopConfigSchema: z.ZodObject<{
     maxSequenceRepeats?: number | undefined;
     windowSize?: number | undefined;
 }>;
+export declare const NeuralConfigSchema: z.ZodObject<{
+    enabled: z.ZodDefault<z.ZodBoolean>;
+    modelId: z.ZodDefault<z.ZodString>;
+    threshold: z.ZodDefault<z.ZodNumber>;
+}, "strip", z.ZodTypeAny, {
+    enabled: boolean;
+    threshold: number;
+    modelId: string;
+}, {
+    enabled?: boolean | undefined;
+    threshold?: number | undefined;
+    modelId?: string | undefined;
+}>;
 export declare const DetectionConfigSchema: z.ZodObject<{
     pii: z.ZodDefault<z.ZodObject<{
         enabled: z.ZodDefault<z.ZodBoolean>;
@@ -222,6 +235,19 @@ export declare const DetectionConfigSchema: z.ZodObject<{
         maxSequenceRepeats?: number | undefined;
         windowSize?: number | undefined;
     }>>;
+    neural: z.ZodDefault<z.ZodObject<{
+        enabled: z.ZodDefault<z.ZodBoolean>;
+        modelId: z.ZodDefault<z.ZodString>;
+        threshold: z.ZodDefault<z.ZodNumber>;
+    }, "strip", z.ZodTypeAny, {
+        enabled: boolean;
+        threshold: number;
+        modelId: string;
+    }, {
+        enabled?: boolean | undefined;
+        threshold?: number | undefined;
+        modelId?: string | undefined;
+    }>>;
 }, "strip", z.ZodTypeAny, {
     pii: {
         enabled: boolean;
@@ -243,6 +269,11 @@ export declare const DetectionConfigSchema: z.ZodObject<{
         maxSequenceRepeats: number;
         windowSize: number;
     };
+    neural: {
+        enabled: boolean;
+        threshold: number;
+        modelId: string;
+    };
 }, {
     pii?: {
         enabled?: boolean | undefined;
@@ -263,6 +294,11 @@ export declare const DetectionConfigSchema: z.ZodObject<{
         maxIdenticalCalls?: number | undefined;
         maxSequenceRepeats?: number | undefined;
         windowSize?: number | undefined;
+    } | undefined;
+    neural?: {
+        enabled?: boolean | undefined;
+        threshold?: number | undefined;
+        modelId?: string | undefined;
     } | undefined;
 }>;
 export declare const PolicyConfigSchema: z.ZodObject<{
@@ -459,6 +495,19 @@ export declare const ShieldConfigSchema: z.ZodObject<{
             maxSequenceRepeats?: number | undefined;
             windowSize?: number | undefined;
         }>>;
+        neural: z.ZodDefault<z.ZodObject<{
+            enabled: z.ZodDefault<z.ZodBoolean>;
+            modelId: z.ZodDefault<z.ZodString>;
+            threshold: z.ZodDefault<z.ZodNumber>;
+        }, "strip", z.ZodTypeAny, {
+            enabled: boolean;
+            threshold: number;
+            modelId: string;
+        }, {
+            enabled?: boolean | undefined;
+            threshold?: number | undefined;
+            modelId?: string | undefined;
+        }>>;
     }, "strip", z.ZodTypeAny, {
         pii: {
             enabled: boolean;
@@ -480,6 +529,11 @@ export declare const ShieldConfigSchema: z.ZodObject<{
             maxSequenceRepeats: number;
             windowSize: number;
         };
+        neural: {
+            enabled: boolean;
+            threshold: number;
+            modelId: string;
+        };
     }, {
         pii?: {
             enabled?: boolean | undefined;
@@ -500,6 +554,11 @@ export declare const ShieldConfigSchema: z.ZodObject<{
             maxIdenticalCalls?: number | undefined;
             maxSequenceRepeats?: number | undefined;
             windowSize?: number | undefined;
+        } | undefined;
+        neural?: {
+            enabled?: boolean | undefined;
+            threshold?: number | undefined;
+            modelId?: string | undefined;
         } | undefined;
     }>>;
     policy: z.ZodDefault<z.ZodObject<{
@@ -664,6 +723,11 @@ export declare const ShieldConfigSchema: z.ZodObject<{
             maxSequenceRepeats: number;
             windowSize: number;
         };
+        neural: {
+            enabled: boolean;
+            threshold: number;
+            modelId: string;
+        };
     };
     policy: {
         enabled: boolean;
@@ -717,6 +781,11 @@ export declare const ShieldConfigSchema: z.ZodObject<{
             maxSequenceRepeats?: number | undefined;
             windowSize?: number | undefined;
         } | undefined;
+        neural?: {
+            enabled?: boolean | undefined;
+            threshold?: number | undefined;
+            modelId?: string | undefined;
+        } | undefined;
     } | undefined;
     policy?: {
         enabled?: boolean | undefined;
@@ -757,4 +826,5 @@ export type HITLConfig = z.output<typeof HITLConfigSchema>;
 export type AuditConfig = z.output<typeof AuditConfigSchema>;
 export type CommandConfig = z.output<typeof CommandConfigSchema>;
 export type LoopConfig = z.output<typeof LoopConfigSchema>;
+export type NeuralConfig = z.output<typeof NeuralConfigSchema>;
 //# sourceMappingURL=schema.d.ts.map
