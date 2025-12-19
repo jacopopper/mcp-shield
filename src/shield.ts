@@ -3,6 +3,7 @@ import type { Transport, MCPClient } from './transport/types.js';
 import { ShieldedTransport } from './transport/shielded-transport.js';
 import { MiddlewarePipeline } from './middleware/pipeline.js';
 import { loadConfig, resolveConfig } from './config/loader.js';
+import { ShieldConsole } from './console/server.js';
 
 export interface Shield {
     /** Wrap an MCP Transport with security scanning */
@@ -13,6 +14,9 @@ export interface Shield {
 
     /** Access resolved configuration */
     readonly config: ResolvedConfig;
+
+    /** Access to the Shield Console (if enabled) */
+    readonly console?: ShieldConsole;
 }
 
 export function createShield(userConfig?: Partial<ShieldConfig>): Shield {
@@ -20,11 +24,21 @@ export function createShield(userConfig?: Partial<ShieldConfig>): Shield {
     const fileConfig = loadConfig();
     const config = resolveConfig({ ...fileConfig, ...userConfig });
 
+    // Initialize Console if enabled
+    let shieldConsole: ShieldConsole | undefined;
+    if (config.console.enabled) {
+        shieldConsole = new ShieldConsole(config.console.port, config);
+        shieldConsole.start();
+    }
+
     // Build middleware pipeline
-    const pipeline = new MiddlewarePipeline(config);
+    const pipeline = new MiddlewarePipeline(config, (event) => {
+        shieldConsole?.broadcast(event);
+    });
 
     return {
         config,
+        console: shieldConsole,
 
         wrapTransport<T extends Transport>(transport: T): T {
             return new ShieldedTransport(transport, config) as unknown as T;

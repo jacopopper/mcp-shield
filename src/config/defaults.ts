@@ -44,4 +44,8 @@ export const DEFAULT_CONFIG: ResolvedConfig = {
         logFile: undefined,
         redactLogs: true,
     },
+    console: {
+        enabled: false,
+        port: 3000,
+    },
 };

@@ -1,12 +1,16 @@
 import { PolicyMiddleware, PolicyDeniedError } from './policy.js';
 import { HITLMiddleware, HITLDeniedError } from './hitl.js';
 import { AuditMiddleware } from './audit.js';
+import { NeuralInjectionDetector } from '../detection/neural/detector.js';
 export class MiddlewarePipeline {
+    onEvent;
     middlewares = [];
     policyMiddleware;
     hitlMiddleware;
     auditMiddleware;
-    constructor(config) {
+    neuralDetector;
+    constructor(config, onEvent) {
+        this.onEvent = onEvent;
         // Order matters: Policy -> HITL -> Audit
         if (config.policy.enabled) {
             this.policyMiddleware = new PolicyMiddleware(config.policy);
@@ -20,6 +24,22 @@ export class MiddlewarePipeline {
             this.auditMiddleware = new AuditMiddleware(config.audit);
             this.middlewares.push(this.auditMiddleware.handle);
         }
+        if (config.detection.neural.enabled) {
+            this.neuralDetector = new NeuralInjectionDetector(config.detection.neural);
+            // Preload model in background
+            this.neuralDetector.preload().catch(err => console.error('Failed to load neural model:', err));
+            this.middlewares.push(this.createNeuralHandler());
+        }
+    }
+    createNeuralHandler() {
+        return async (ctx, next) => {
+            if (!this.neuralDetector)
+                return next();
+            // Only scan string arguments
+            const argsStr = JSON.stringify(ctx.args);
+            await this.neuralDetector.detectAndBlock(argsStr);
+            return next();
+        };
     }
     createPolicyHandler() {
         return async (ctx, next) => {
@@ -47,7 +67,33 @@ export class MiddlewarePipeline {
             const next = chain;
             chain = () => middleware(ctx, next);
         }
-        return chain();
+        try {
+            this.onEvent?.({
+                type: 'log',
+                payload: { event: 'tool_call', tool, args },
+                timestamp: Date.now()
+            });
+            const start = Date.now();
+            const result = await chain();
+            const duration = Date.now() - start;
+            this.onEvent?.({
+                type: 'log',
+                payload: { event: 'completed', tool, duration },
+                timestamp: Date.now()
+            });
+            return result;
+        }
+        catch (error) {
+            // Log blocked requests
+            if (error.name === 'PolicyDeniedError' || error.name === 'HITLDeniedError' || error.name === 'NeuralInjectionBlockedError') {
+                this.onEvent?.({
+                    type: 'log',
+                    payload: { event: 'blocked', tool, reason: error.message },
+                    timestamp: Date.now()
+                });
+            }
+            throw error;
+        }
     }
 }
 // Re-export errors

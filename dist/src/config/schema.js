@@ -72,11 +72,16 @@ export const AuditConfigSchema = z.object({
     logFile: z.string().optional(),
     redactLogs: z.boolean().default(true),
 });
+export const ConsoleConfigSchema = z.object({
+    enabled: z.boolean().default(false),
+    port: z.number().default(3000),
+});
 export const ShieldConfigSchema = z.object({
     version: z.literal('1.0').default('1.0'),
     detection: DetectionConfigSchema.default({}),
     policy: PolicyConfigSchema.default({}),
     hitl: HITLConfigSchema.default({}),
     audit: AuditConfigSchema.default({}),
+    console: ConsoleConfigSchema.default({}),
 });
 //# sourceMappingURL=schema.js.map

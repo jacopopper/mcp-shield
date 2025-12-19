@@ -1,14 +1,24 @@
 import { ShieldedTransport } from './transport/shielded-transport.js';
 import { MiddlewarePipeline } from './middleware/pipeline.js';
 import { loadConfig, resolveConfig } from './config/loader.js';
+import { ShieldConsole } from './console/server.js';
 export function createShield(userConfig) {
     // Load config: user provided > config file > defaults
     const fileConfig = loadConfig();
     const config = resolveConfig({ ...fileConfig, ...userConfig });
+    // Initialize Console if enabled
+    let shieldConsole;
+    if (config.console.enabled) {
+        shieldConsole = new ShieldConsole(config.console.port, config);
+        shieldConsole.start();
+    }
     // Build middleware pipeline
-    const pipeline = new MiddlewarePipeline(config);
+    const pipeline = new MiddlewarePipeline(config, (event) => {
+        shieldConsole?.broadcast(event);
+    });
     return {
         config,
+        console: shieldConsole,
         wrapTransport(transport) {
             return new ShieldedTransport(transport, config);
         },

@@ -42,5 +42,9 @@ export const DEFAULT_CONFIG = {
         logFile: undefined,
         redactLogs: true,
     },
+    console: {
+        enabled: false,
+        port: 3000,
+    },
 };
 //# sourceMappingURL=defaults.js.map

@@ -1,5 +1,6 @@
 import type { ShieldConfig, ResolvedConfig } from './config/schema.js';
 import type { Transport, MCPClient } from './transport/types.js';
+import { ShieldConsole } from './console/server.js';
 export interface Shield {
     /** Wrap an MCP Transport with security scanning */
     wrapTransport<T extends Transport>(transport: T): T;
@@ -7,6 +8,8 @@ export interface Shield {
     wrapClient<T extends MCPClient>(client: T): T;
     /** Access resolved configuration */
     readonly config: ResolvedConfig;
+    /** Access to the Shield Console (if enabled) */
+    readonly console?: ShieldConsole;
 }
 export declare function createShield(userConfig?: Partial<ShieldConfig>): Shield;
 /**

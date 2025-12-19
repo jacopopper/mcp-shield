@@ -45,7 +45,9 @@ await client.callTool('filesystem.read', { path: '/tmp/data.txt' });
 - ✅ **Audit Logging** – Structured JSONL logging of all tool calls
 - ✅ **Command Injection Sanitization** – Shell metacharacter escaping/stripping
 - ✅ **Infinite Loop Detection** – Heuristic detection of recursive tool call patterns
+
 - ✅ **mcp-use Integration** – Native `useShield` hook for seamless adoption
+- ✅ **Shield Console** – Local `localhost:3000` dashboard for real-time monitoring and control
 
 ## Next Steps
 
@@ -62,7 +64,9 @@ await client.callTool('filesystem.read', { path: '/tmp/data.txt' });
 - **Ephemeral Permissions (JIT)** – Just-in-Time grants ("Allow for this session" or "Allow for 5 minutes")
 - **Modify-and-Approve UI** – Let users edit tool arguments before approving execution
 - **Remote Approval (Slack/Discord)** – Push notifications for Human-in-the-Loop approvals
-- **Shield Console** – Local `localhost:3000` dashboard to view blocked requests and replay tool calls
+- **Modify-and-Approve UI** – Let users edit tool arguments before approving execution
+- **Remote Approval (Slack/Discord)** – Push notifications for Human-in-the-Loop approvals
+- **Improve Shield Console** – Add historical replay, advanced filtering, and remote access
 
 ### 📦 Isolation & Trust
 

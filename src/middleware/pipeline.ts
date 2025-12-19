@@ -2,6 +2,7 @@ import type { ResolvedConfig } from '../config/schema.js';
 import { PolicyMiddleware, PolicyDeniedError, PolicyEvaluation } from './policy.js';
 import { HITLMiddleware, HITLDeniedError } from './hitl.js';
 import { AuditMiddleware } from './audit.js';
+import { NeuralInjectionDetector } from '../detection/neural/detector.js';
 
 export interface ApprovalRecord {
     approved: boolean;
@@ -26,8 +27,9 @@ export class MiddlewarePipeline {
     private policyMiddleware?: PolicyMiddleware;
     private hitlMiddleware?: HITLMiddleware;
     private auditMiddleware?: AuditMiddleware;
+    private neuralDetector?: NeuralInjectionDetector;
 
-    constructor(config: ResolvedConfig) {
+    constructor(config: ResolvedConfig, private onEvent?: (event: any) => void) {
         // Order matters: Policy -> HITL -> Audit
         if (config.policy.enabled) {
             this.policyMiddleware = new PolicyMiddleware(config.policy);
@@ -41,6 +43,24 @@ export class MiddlewarePipeline {
             this.auditMiddleware = new AuditMiddleware(config.audit);
             this.middlewares.push(this.auditMiddleware.handle);
         }
+        if (config.detection.neural.enabled) {
+            this.neuralDetector = new NeuralInjectionDetector(config.detection.neural);
+            // Preload model in background
+            this.neuralDetector.preload().catch(err => console.error('Failed to load neural model:', err));
+            this.middlewares.push(this.createNeuralHandler());
+        }
+    }
+
+    private createNeuralHandler(): MiddlewareFn {
+        return async (ctx: MiddlewareContext, next: () => Promise<unknown>) => {
+            if (!this.neuralDetector) return next();
+
+            // Only scan string arguments
+            const argsStr = JSON.stringify(ctx.args);
+            await this.neuralDetector.detectAndBlock(argsStr);
+
+            return next();
+        };
     }
 
     private createPolicyHandler(): MiddlewareFn {
@@ -74,7 +94,35 @@ export class MiddlewarePipeline {
             chain = () => middleware(ctx, next);
         }
 
-        return chain();
+        try {
+            this.onEvent?.({
+                type: 'log',
+                payload: { event: 'tool_call', tool, args },
+                timestamp: Date.now()
+            });
+
+            const start = Date.now();
+            const result = await chain();
+            const duration = Date.now() - start;
+
+            this.onEvent?.({
+                type: 'log',
+                payload: { event: 'completed', tool, duration },
+                timestamp: Date.now()
+            });
+
+            return result;
+        } catch (error: any) {
+            // Log blocked requests
+            if (error.name === 'PolicyDeniedError' || error.name === 'HITLDeniedError' || error.name === 'NeuralInjectionBlockedError') {
+                this.onEvent?.({
+                    type: 'log',
+                    payload: { event: 'blocked', tool, reason: error.message },
+                    timestamp: Date.now()
+                });
+            }
+            throw error;
+        }
     }
 }
 

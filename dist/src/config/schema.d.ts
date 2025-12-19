@@ -440,6 +440,16 @@ export declare const AuditConfigSchema: z.ZodObject<{
     logFile?: string | undefined;
     redactLogs?: boolean | undefined;
 }>;
+export declare const ConsoleConfigSchema: z.ZodObject<{
+    enabled: z.ZodDefault<z.ZodBoolean>;
+    port: z.ZodDefault<z.ZodNumber>;
+}, "strip", z.ZodTypeAny, {
+    enabled: boolean;
+    port: number;
+}, {
+    enabled?: boolean | undefined;
+    port?: number | undefined;
+}>;
 export declare const ShieldConfigSchema: z.ZodObject<{
     version: z.ZodDefault<z.ZodLiteral<"1.0">>;
     detection: z.ZodDefault<z.ZodObject<{
@@ -700,6 +710,16 @@ export declare const ShieldConfigSchema: z.ZodObject<{
         logFile?: string | undefined;
         redactLogs?: boolean | undefined;
     }>>;
+    console: z.ZodDefault<z.ZodObject<{
+        enabled: z.ZodDefault<z.ZodBoolean>;
+        port: z.ZodDefault<z.ZodNumber>;
+    }, "strip", z.ZodTypeAny, {
+        enabled: boolean;
+        port: number;
+    }, {
+        enabled?: boolean | undefined;
+        port?: number | undefined;
+    }>>;
 }, "strip", z.ZodTypeAny, {
     version: "1.0";
     detection: {
@@ -757,6 +777,10 @@ export declare const ShieldConfigSchema: z.ZodObject<{
         enabled: boolean;
         redactLogs: boolean;
         logFile?: string | undefined;
+    };
+    console: {
+        enabled: boolean;
+        port: number;
     };
 }, {
     version?: "1.0" | undefined;
@@ -816,6 +840,10 @@ export declare const ShieldConfigSchema: z.ZodObject<{
         logFile?: string | undefined;
         redactLogs?: boolean | undefined;
     } | undefined;
+    console?: {
+        enabled?: boolean | undefined;
+        port?: number | undefined;
+    } | undefined;
 }>;
 export type ShieldConfig = z.input<typeof ShieldConfigSchema>;
 export type ResolvedConfig = z.output<typeof ShieldConfigSchema>;
@@ -827,4 +855,5 @@ export type AuditConfig = z.output<typeof AuditConfigSchema>;
 export type CommandConfig = z.output<typeof CommandConfigSchema>;
 export type LoopConfig = z.output<typeof LoopConfigSchema>;
 export type NeuralConfig = z.output<typeof NeuralConfigSchema>;
+export type ConsoleConfig = z.output<typeof ConsoleConfigSchema>;
 //# sourceMappingURL=schema.d.ts.map
